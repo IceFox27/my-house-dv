@@ -4,6 +4,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/blocks/table.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -24,8 +25,8 @@
                 <td>{{ post.subject }}</td>
                 <td>{{ post.student }}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-secondary">Редактировать</a>
-                    <a href="#" class="btn btn-sm btn-danger">Удалить</a>
+                    <a href="{{ url_for('post.update', id=post.id) }}" class="btn btn-sm btn-secondary"><span class="fa fa-edit"></span></a>
+                    <a href="{{ url_for('post.delete', id=post.id) }}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                 </td>
             </tr>
             {% endfor %}

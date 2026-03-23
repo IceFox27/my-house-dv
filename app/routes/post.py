@@ -6,7 +6,7 @@ post = Blueprint('post', __name__)
 
 @post.route('/', methods=['POST', 'GET'])
 def all():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.date.desc()).all()
     return render_template('post/all.html', posts=posts)
 
 @post.route('/post/create', methods=['POST', 'GET'])
@@ -29,7 +29,27 @@ def create():
 
 @post.route('/post/<int:id>/update', methods=['POST', 'GET'])
 def update(id):
+    post = Post.query.get(id)
     if request.method == 'POST':
-        pass      
+        post.teacher = request.form.get('teacher')
+        post.subject = request.form.get('subject')
+        post.student = request.form.get('student')
+
+        try:
+            db.session.commit()
+            return redirect('/')
+        except Exception as e:
+            print(str(e))        
     else:
-        return render_template('post/update.html')
+        return render_template('post/update.html', post=post)
+
+@post.route('/post/<int:id>/delete', methods=['POST', 'GET'])
+def delete(id):
+    post = Post.query.get(id)
+    try:
+        db.session.delete(post)
+        db.session.commit()
+        return redirect('/')
+    except Exception as e:
+        print(str(e))
+        return str(e)        
