@@ -66,3 +66,8 @@
 .custom-table tbody tr:hover td a {
   color: #fff;
 }
+
+.custom-table td {
+    text-align: center;
+    vertical-align: middle;
+}
