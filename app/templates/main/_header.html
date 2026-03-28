@@ -9,9 +9,12 @@
     </ul>
 
     <div class="text-end">
-        <a href="{{ url_for('user.login') }}" type="button" class="btn btn-outline-light me-2">Войти</button>
-        <a href="{{ url_for('user.register') }}" class="text-decoration-none">
-            <button type="button" class="btn btn-warning">Регистрация</button>
-        </a>
+        {% if current_user.is_authenticated %}
+            <span>Добро пожаловать, {{ current_user.login }}</span>
+            <a href="{{ url_for('user.logout') }}" class="btn btn-outline-light me-2">Выйти</a>
+        {% else %}
+            <a href="{{ url_for('user.login') }}" class="btn btn-outline-light me-2">Войти</a>
+            <a href="{{ url_for('user.register') }}" class="btn btn-outline-light me-2">Регистрация</a>
+        {% endif %}
     </div>
 </div>
