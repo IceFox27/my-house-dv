@@ -8,6 +8,12 @@
 {% endblock %}
 
 {% block content %}
+<form method="post" class="form-control d-flex flex-row gap-2" id="teacherForm">
+  {{ form.csrf_token }}
+  {{ form.teacher }}
+  <input type="submit" class="btn btn-success" value="Показать">
+</form>
+
 <div class="table-responsive custom-table-responsive">
     <table class="table custom-table">
         <thead>
@@ -15,7 +21,7 @@
                 <th scope="col">Преподаватель</th>
                 <th scope="col">Тема</th>
                 <th scope="col">Студент</th>
-                {% if current_user.is_authenticated %}<th scope="col">Действия</th>{% endif %}
+                <th scope="col">Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -34,12 +40,12 @@
                     {% endwith %}
                 </td>
 
-            {% if current_user.is_authenticated %}
                 <td>
+                    {% if current_user.is_authenticated and post.author.id == current_user.id %}
                     <a href="{{ url_for('post.update', id=post.id) }}" class="btn btn-sm btn-secondary"><span class="fa fa-edit"></span></a>
                     <a href="{{ url_for('post.delete', id=post.id) }}" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                    {% endif %}
                 </td>
-            {% endif %}
             </tr>
             {% endfor %}
         </tbody>
