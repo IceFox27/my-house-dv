@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
+from ..functions import save_picture
 from ..forms import RegistrationForm
-from ..extensions import db
+from ..extensions import db, bcrypt
 from ..models.user import User
 
 user = Blueprint('user', __name__)
@@ -10,9 +11,11 @@ user = Blueprint('user', __name__)
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        print(form.name.data)
-        print(form.password.data)
-        print(form.avatar.data)
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        avatar_filename = save_picture(form.avatar.data)
+        user = User(name=form.name.data, login=form.login.data, avatar=form.avatar.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
         return redirect('/')
     else:
         print('Ошибка регистрации!')
