@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect
 from ..functions import save_picture
 from ..forms import RegistrationForm
 from ..extensions import db, bcrypt
-from ..models.user import User
+from ..models.employee import Employee
 
 user = Blueprint('user', __name__)
 
