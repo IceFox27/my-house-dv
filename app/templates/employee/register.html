@@ -5,45 +5,48 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-8 col-lg-7">
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-header bg-white border-0 pt-4 pb-0">
                     <h3 class="text-center mb-0 fw-bold text-primary">Создание аккаунта сотрудника</h3>
-                    <p class="text-center text-muted mt-2">Заполните форму для регистрации вашего нового сотрудника</p>
+                    <p class="text-center text-muted mt-2">Заполните форму для регистрации нового сотрудника</p>
                 </div>
                 
                 <div class="card-body p-4">
                     <form method="post" enctype="multipart/form-data">
                         {{ form.csrf_token }}
                         
+                        <!-- Фамилия -->
                         <div class="mb-3">
-                            <label for="surname" class="form-label fw-semibold">
-                                <i class="bi bi-person"></i> {{ form.surname.label.text }}
+                            <label for="last_name" class="form-label fw-semibold">
+                                <i class="bi bi-person"></i> {{ form.last_name.label.text }}
                             </label>
-                            {{ form.surname(class="form-control form-control-lg rounded-3", placeholder="Введите фамилию") }}
-                            {% if form.surname.errors %}
+                            {{ form.last_name(class="form-control form-control-lg rounded-3", placeholder="Введите фамилию") }}
+                            {% if form.last_name.errors %}
                                 <div class="text-danger small mt-1">
-                                    {% for error in form.surname.errors %}
+                                    {% for error in form.last_name.errors %}
                                         {{ error }}
                                     {% endfor %}
                                 </div>
                             {% endif %}
                         </div>
                         
+                        <!-- Имя -->
                         <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold">
-                                <i class="bi bi-person"></i> {{ form.name.label.text }}
+                            <label for="first_name" class="form-label fw-semibold">
+                                <i class="bi bi-person"></i> {{ form.first_name.label.text }}
                             </label>
-                            {{ form.name(class="form-control form-control-lg rounded-3", placeholder="Введите имя") }}
-                            {% if form.name.errors %}
+                            {{ form.first_name(class="form-control form-control-lg rounded-3", placeholder="Введите имя") }}
+                            {% if form.first_name.errors %}
                                 <div class="text-danger small mt-1">
-                                    {% for error in form.name.errors %}
+                                    {% for error in form.first_name.errors %}
                                         {{ error }}
                                     {% endfor %}
                                 </div>
                             {% endif %}
                         </div>
                         
+                        <!-- Отчество -->
                         <div class="mb-3">
                             <label for="patronymic" class="form-label fw-semibold">
                                 <i class="bi bi-person"></i> {{ form.patronymic.label.text }}
@@ -72,6 +75,52 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">
+                                <i class="bi bi-envelope"></i> {{ form.email.label.text }}
+                            </label>
+                            {{ form.email(class="form-control form-control-lg rounded-3", placeholder="example@mail.com") }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Телефон -->
+                        <div class="mb-3">
+                            <label for="phone" class="form-label fw-semibold">
+                                <i class="bi bi-telephone"></i> {{ form.phone.label.text }}
+                            </label>
+                            {{ form.phone(class="form-control form-control-lg rounded-3", placeholder="+7 (999) 123-45-67") }}
+                            {% if form.phone.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.phone.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Роль (выпадающий список) -->
+                        <div class="mb-3">
+                            <label for="role" class="form-label fw-semibold">
+                                <i class="bi bi-shield"></i> {{ form.role.label.text }}
+                            </label>
+                            {{ form.role(class="form-select form-select-lg rounded-3") }}
+                            {% if form.role.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.role.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text mt-1">Выберите роль сотрудника</div>
                         </div>
                         
                         <!-- Аватар -->
